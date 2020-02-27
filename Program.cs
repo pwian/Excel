@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Excel
 {
@@ -10,6 +7,16 @@ namespace Excel
     {
         static void Main(string[] args)
         {
+            var fileName = Path.Combine(Directory.GetCurrentDirectory(), "TestExcel.xlsx");
+            using (var excel = new Excel(fileName))
+            {
+                var inputString = "TestValue";
+                excel.WriteToCell(1, 1, inputString);
+                var value = excel.ReadCell(1, 1);
+                Console.WriteLine(value);
+                excel.Save();
+                excel.Close();
+            }
         }
     }
 }
